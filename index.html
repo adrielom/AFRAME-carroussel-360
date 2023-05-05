@@ -5,7 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.min.js"></script>
-		<script src="https://unpkg.com/aframe-animation-component@3.0.0/dist/aframe-animation-component.min.js"></script>
+		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.js"></script>
 		<script src="./js/play-on-click.js"></script>
 		<script src="./js/hide-on-play.js"></script>
@@ -26,48 +27,50 @@
 					src="./assets/depositphotos_470208226-stock-video-beautiful-tropical-waterfall-kawasan-falls.mp4"
 				></video>
 			</a-assets>
+			
 			<a-videosphere rotation="0 -90 0" src="#video" play-on-click>
 			</a-videosphere>
-
-			<a-camera>
-				<a-entity camera look-controls  wasd-controls="enabled: false">
-					<a-entity
-						cursor="fuse: true; fuseTimeout: 500"
-						position="0 0 -1"
-						geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-						material="color: orange; shader: flat"
-					>
-					</a-entity>
-				</a-entity>
+			
+			<a-entity position="0 2 0" camera look-controls wasd-controls="enabled: false">
 				<a-entity
-					position="0 0 -1.5"
-					text="align:center;
+					cursor
+					position="0 0 -1"
+					geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+					material="color: orange; shader: flat"
+				>
+				</a-entity>
+			</a-entity>
+			<a-entity
+				position="0 0 -1.5"
+				text="align:center;
                     width:6;
                     wrapCount:100;
                     color: white;
                     value: Click or tap to start video"
-					hide-on-play="#video"
-				>
-				</a-entity>
-			</a-camera>
+				hide-on-play="#video"
+			>
+			</a-entity>
 
-			<a-entity
-                showcards
-				clickable
-				>
+			<a-entity showcards clickable>
 				<a-entity
 					class="card"
 					position="0 1.875 -3.918"
 					scale="1 1 1"
-					material="color:red"  
+					material="color:red"
 					geometry="height:1.98;width:1.49;primitive:plane"
 				>
+					<a-entity
+						position="0 0 0.2"
+						material="color: white"
+						geometry="height: 1; width: 2; primitive: plane"
+					></a-entity>
 				</a-entity>
 				<a-entity
 					class="card"
 					position="-4.249 1.875 -2.683"
 					rotation="0 32.887777440509254 0"
-					material=""
+					material="color: green"
+					animation="property: rotation; from: 0 0 0; to: 0 360 0; dur: 200; startEvents: click;"
 					geometry="primitive:plane;height:1.98;width:1.49"
 				>
 				</a-entity>
