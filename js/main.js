@@ -8,6 +8,7 @@ AFRAME.registerComponent('main', {
     init: function () {
 
         const video = document.querySelector('#video');
+        video.load()
         video.play()
         const isMobile = AFRAME.utils.device.isMobile();
         let cursor = document.querySelector('#orange-cursor')
@@ -28,10 +29,8 @@ AFRAME.registerComponent('main', {
 
         const parent = document.querySelector('.cards')
         let imagesSet = []
-        // Create a parent element that will spin
         let numberOfImages = 7
         let arc = 270
-        // Create 15 child elements and position them around the parent
         for (let i = 0; i < numberOfImages; i++) {
             let randomImageIndex = this.randomImageIndex()
 
@@ -45,10 +44,9 @@ AFRAME.registerComponent('main', {
             childImage.setAttribute('class', 'card');
             const clickableAttribute = document.createAttribute('clickable');
             childImage.setAttributeNode(clickableAttribute)
-            // const lookControl = document.createAttribute('look-controls')
-            // child.setAttributeNode(lookControl)
-            const angle = (i / numberOfImages) * (arc * Math.PI / 180); // Calculate the angle between elements
-            const radius = 5; // Set the distance from the parent
+
+            const angle = (i / numberOfImages) * (arc * Math.PI / 180);
+            const radius = 7;
             childImage.setAttribute('position', {
                 x: Math.sin(angle) * radius,
                 y: 2,
@@ -58,6 +56,9 @@ AFRAME.registerComponent('main', {
                 y: i * (arc / numberOfImages)
             })
             parent.appendChild(childImage);
+
+            childText.setAttribute('font', 'https://cdn.aframe.io/fonts/Exo2Bold.fnt');
+
             childText.setAttribute('position', { x: 0, y: -0.335, z: 0 })
             childText.setAttribute('scale', { x: -1, y: 1, z: -1 })
             childText.setAttribute('align', 'center')
@@ -77,6 +78,13 @@ AFRAME.registerComponent('clickable', {
     init: function () {
         this.el.addEventListener('mouseenter', this.onMouseEnter.bind(this))
         this.el.addEventListener('mouseleave', this.onMouseExit.bind(this))
+        this.el.addEventListener('click', this.onClick.bind(this))
+    },
+    onClick: () => {
+        console.log('hey there')
+        const redirectTag = document.createElement('a')
+        redirectTag.href = 'https://issuu.com/overlabel/docs/dogville_lookbook2305-pg'
+        redirectTag.click()
     },
     animateScale: function (startScale, endScale) {
         const target = this.el
@@ -114,8 +122,6 @@ AFRAME.registerComponent('clickable', {
     onMouseExit: function (event) {
         const startScale = { x: 2, y: 3, z: 1 };
         const endScale = { x: 4, y: 6, z: 1 };
-
-        const parent = this.el.object3D
 
         anime({
             targets: endScale,
